@@ -15,11 +15,40 @@ module.exports = () => {
       install: './src/js/install.js'
     },
     output: {
-      filename: 'main.js', //added name
+      filename: 'main.bundle.js', //added name
       path: path.resolve(__dirname, 'dist'),
     },
     plugins: [
-      
+            // Webpack plugin that generates our html file and injects our bundles. 
+            new HtmlWebpackPlugin({
+              template: './index.html',
+              title: 'Contact Cards'
+            }),
+           
+            // Injects our custom service worker
+            new InjectManifest({
+              swSrc: './src-sw.js',
+              swDest: 'src-sw.js',
+            }),
+             // Creates a manifest.json file.
+            new WebpackPwaManifest({
+              fingerprints: false,
+              inject: true,
+              name: 'Contact Cards',
+              short_name: 'Contact',
+              description: 'Never forget your contacts!',
+              background_color: '#225ca3',
+              theme_color: '#225ca3',
+              start_url: './',
+              publicPath: './',
+              icons: [
+                {
+                  src: path.resolve('src/images/logo.png'),
+                  sizes: [96, 128, 192, 256, 384, 512],
+                  destination: path.join('assets', 'icons'),
+                },
+              ],
+            }),
     ],
 
     module: {
@@ -38,11 +67,13 @@ module.exports = () => {
         // added rules for babel loader to use preset-env
           test: /\.m?js$/,
           exclude: /(node_modules|bower_components)/,
+          //use babel-loader.
           use: {
             loader: 'babel-loader',
             options: {
-              presets: ['@babel/preset-env']
-            }
+              presets: ['@babel/preset-env'],
+              plugins: ['@babel/plugin-proposal-object-rest-spread', '@babel/transform-runtime'],
+            },
           }
         }
       ],
