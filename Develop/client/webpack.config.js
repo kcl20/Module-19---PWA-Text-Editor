@@ -28,7 +28,7 @@ module.exports = () => {
             // Injects our custom service worker
             new InjectManifest({
               swSrc: './src-sw.js',
-              swDest: 'src-sw.js',
+              swDest: 'service-worker.js',
             }),
              // Creates a manifest.json file.
             new WebpackPwaManifest({
@@ -48,6 +48,25 @@ module.exports = () => {
                   destination: path.join('assets', 'icons'),
                 },
               ],
+            }),
+            new WorkboxPlugin.GenerateSW({
+              // do not precache images
+              exclude: [/\.(?:png|jpg|jpeg|svg)$/],
+              // define runtime caching rules
+              runtimeCaching: [{
+              // match any request that ends with .png, .jpg, .jpeg or .svg
+              urlPattern: /\.(?:png|jpg|jpeg|svg)$/,
+              // apply a cache-first strategy
+              handler: 'CacheFirst',
+              options: {
+                // use a custom cache name
+                cacheName: 'images',
+                // only cache 10 images
+                expiration: {
+                  maxEntries: 10,
+                },
+              },
+              }]
             }),
     ],
 
