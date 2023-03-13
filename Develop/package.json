@@ -16,7 +16,8 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "if-env": "^1.0.4"
+    "if-env": "^1.0.4",
+    "workbox-webpack-plugin": "^6.5.4"
   },
   "devDependencies": {
     "@babel/core": "^7.21.0",
@@ -30,6 +31,7 @@
     "style-loader": "^3.3.2",
     "webpack": "^5.76.1",
     "webpack-cli": "^5.0.1",
-    "webpack-dev-server": "^4.11.1"
+    "webpack-dev-server": "^4.11.1",
+    "webpack-pwa-manifest": "^4.3.0"
   }
 }
