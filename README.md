@@ -11,7 +11,7 @@ n/a
 n/a
 
 ## Mock-Up
-![screenshot](client\src\images\JATE Screenshot.png)
+![screenshot]([client\src\images\JATE Screenshot.png](https://github.com/kcl20/Module-19---PWA-Text-Editor/blob/main/client/src/images/JATE%20Screenshot.png))
 
 
 ## License
